@@ -1,0 +1,71 @@
+// Задание 1
+
+const xmlUsers = `<list>
+  <student>
+    <name lang="en">
+      <first>Ivan</first>
+      <second>Ivanov</second>
+    </name>
+    <age>35</age>
+    <prof>teacher</prof>
+  </student>
+  <student>
+    <name lang="ru">
+      <first>Петр</first>
+      <second>Петров</second>
+    </name>
+    <age>58</age>
+    <prof>driver</prof>
+  </student>
+</list>`;
+
+const xmlArr = (xml) =>{
+  
+  const parser = new DOMParser();
+  const xmlDOM = parser.parseFromString(xmlUsers, 'text/xml');
+  const listNode = xmlDOM.querySelector('list')
+  
+  for(let i=0; i< listNode.children.length; i++){
+    
+    const nameNode = listNode.children[i].querySelector('name')
+    
+    const firstNode = nameNode.querySelector('first');
+    const secondNode = nameNode.querySelector('second');
+    const ageNode = listNode.querySelector('age');
+    const profNode = listNode.querySelector('prof');
+    const categoryAttr = nameNode.getAttribute('lang')
+    
+    const result = {
+    name: `${firstNode.textContent} ${secondNode.textContent}`,
+    age: Number(ageNode.textContent),
+    prof: profNode.textContent,
+    lang: categoryAttr
+  }
+
+console.log(result);
+   }
+}
+
+xmlArr(xmlUsers);
+
+
+// Задание 2
+
+const jsonfile = `{
+  "list": [
+   {
+    "name": "Petr",
+    "age": "20",
+    "prof": "mechanic"
+   },
+   {
+    "name": "Vova",
+    "age": "60",
+    "prof": "pilot"
+   }
+  ]
+ }`
+
+ const list = JSON.parse(jsonfile);
+ const result = [list]
+ console.log(result);
